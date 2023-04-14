@@ -7,14 +7,14 @@ body {
     justify-content: center;
     gap: 2rem;
     align-items: baseline;
-    padding-top: 2rem;
+    padding-top: 1rem;
 }
 
 .carosello {
     display: grid;
     grid-template-columns: 1fr 300px 1fr;
     min-height: 300px;
-    padding-top: 2rem;
+    padding-top: 1rem;
 }
 
 .carosello>* {
@@ -31,11 +31,17 @@ body {
 
 .carosello>img {
     width: 100%;
-
 }
 
 .commands>* {
     font-size: 2rem;
     cursor: pointer;
     font-weight: 700;
+}
+
+.title {
+    padding-top: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 800;
 }

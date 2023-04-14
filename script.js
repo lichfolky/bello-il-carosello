@@ -1,6 +1,8 @@
+// @ts-check
+
 const items = [
     {
-        image: "133",
+        image: "113",
         title: "Marvel's Spiderman Miles Morale",
         text:
             "Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man."
@@ -31,38 +33,86 @@ const items = [
 ];
 
 const itemsEl = [];
-const prev = document.querySelector("#prev");
-const num = document.querySelector("#num");
-const next = document.querySelector("#next");
 
 const carosello = document.querySelector(".carosello");
-for (const item of items) {
-    let photoEl = document.createElement("img");
-    var timestamp = new Date().getTime();
-    photoEl.src = `https://picsum.photos/id/${item.image}/300/400?t=${timestamp}`;
-    itemsEl.push(photoEl);
-    carosello.append(photoEl);
-    num.innerText = `1 / ${itemsEl.length}`;
+if (carosello !== null) {
+
+    const nextEl = document.querySelector("#next");
+    const prevEl = document.querySelector("#prev");
+    const num = document.querySelector("#num");
+    const imgTitleEl = document.querySelector(".title");
+
+    for (const item of items) {
+        let photoEl = document.createElement("img");
+        var timestamp = new Date().getTime();
+        photoEl.src = `https://picsum.photos/id/${item.image}/300/400?t=${timestamp}`;
+        photoEl.alt = item.text;
+        photoEl.addEventListener("click", next);
+        itemsEl.push(photoEl);
+        carosello.append(photoEl);
+    }
+
+    setCurrent(0);
+    let interval;
+    start();
+
+    let indexActive = 0;
+    itemsEl[indexActive].classList.add("active");
+
+    if (nextEl) {
+        nextEl.addEventListener(`click`, () => {
+
+            stop();
+            next();
+        });
+
+    }
+    if (prevEl) {
+        prevEl.addEventListener(`click`, () => {
+            stop();
+            prev();
+        });
+    }
+
+    function next() {
+        itemsEl[indexActive].classList.remove("active");
+        if (indexActive < itemsEl.length - 1) {
+            indexActive++;
+        } else {
+            indexActive = 0;
+        }
+        itemsEl[indexActive].classList.add("active");
+        setCurrent(indexActive);
+    }
+
+    function prev() {
+        itemsEl[indexActive].classList.remove("active");
+        if (indexActive > 0) {
+            indexActive--;
+        } else {
+            indexActive = itemsEl.length - 1;
+        }
+        itemsEl[indexActive].classList.add("active");
+        setCurrent(indexActive);
+    }
+
+    function setCurrent(active) {
+        // @ts-ignore
+        num.innerText = `${active + 1} / ${itemsEl.length}`;
+        // @ts-ignore
+        imgTitleEl.innerText = items[active].title;
+    }
+
+    function start() {
+        // @ts-ignore
+        imgTitleEl.style.color = "green";
+        interval = setInterval(next, 3000);
+    }
+
+    function stop() {
+        // @ts-ignore
+        imgTitleEl.style.color = "red";
+        clearInterval(interval);
+    }
+
 }
-
-let indexActive = 0;
-itemsEl[indexActive].classList.add("active");
-
-next.addEventListener(`click`, function () {
-    itemsEl[indexActive].classList.remove("active");
-    if (indexActive < itemsEl.length - 1) {
-        indexActive++;
-    }
-    itemsEl[indexActive].classList.add("active");
-    num.innerText = `${indexActive + 1} / ${itemsEl.length}`;
-
-});
-
-prev.addEventListener(`click`, function () {
-    itemsEl[indexActive].classList.remove("active");
-    if (indexActive > 0) {
-        indexActive--;
-    }
-    itemsEl[indexActive].classList.add("active");
-    num.innerText = `${indexActive + 1} / ${itemsEl.length}`;
-});
