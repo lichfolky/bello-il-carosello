@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+}
+
+.commands {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    align-items: baseline;
+    padding-top: 2rem;
+}
+
+.carosello {
+    display: grid;
+    grid-template-columns: 1fr 300px 1fr;
+    min-height: 300px;
+    padding-top: 2rem;
+}
+
+.carosello>* {
+    grid-column: 2;
+    grid-row: 2;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.carosello>*.active {
+    display: block;
+    opacity: 1;
+}
+
+.carosello>img {
+    width: 100%;
+
+}
+
+.commands>* {
+    font-size: 2rem;
+    cursor: pointer;
+    font-weight: 700;
+}
