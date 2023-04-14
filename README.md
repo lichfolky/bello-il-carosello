@@ -7,3 +7,7 @@
 👉 Make different things clearly different
 
 // @ts-check
+
+
+
+https://github.com/josephschmitt/Clamp.js/blob/master/clamp.min.js

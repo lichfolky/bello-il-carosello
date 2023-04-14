@@ -1,9 +1,11 @@
+import clamp from "./clamp.js";
+
 // @ts-check
 
 const items = [
     {
         image: "113",
-        title: "Marvel's Spiderman Miles Morale",
+        title: "Marvel's Spiderman Miles Morale. Marvel's Spiderman Miles Morale",
         text:
             "Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man."
     },
@@ -34,8 +36,9 @@ const items = [
 
 const itemsEl = [];
 
+const wrapperEl = document.querySelector(".wrapper-carosello");
 const carosello = document.querySelector(".carosello");
-if (carosello !== null) {
+if (carosello !== null && wrapperEl !== null) {
 
     const nextEl = document.querySelector("#next");
     const prevEl = document.querySelector("#prev");
@@ -48,6 +51,7 @@ if (carosello !== null) {
         photoEl.src = `https://picsum.photos/id/${item.image}/300/400?t=${timestamp}`;
         photoEl.alt = item.text;
         photoEl.addEventListener("click", next);
+
         itemsEl.push(photoEl);
         carosello.append(photoEl);
     }
@@ -56,12 +60,14 @@ if (carosello !== null) {
     let interval;
     start();
 
+    wrapperEl.addEventListener("mouseenter", stop);
+    wrapperEl.addEventListener("mouseleave", start);
+
     let indexActive = 0;
     itemsEl[indexActive].classList.add("active");
 
     if (nextEl) {
         nextEl.addEventListener(`click`, () => {
-
             stop();
             next();
         });
@@ -101,6 +107,7 @@ if (carosello !== null) {
         num.innerText = `${active + 1} / ${itemsEl.length}`;
         // @ts-ignore
         imgTitleEl.innerText = items[active].title;
+        clamp(imgTitleEl, { clamp: '60px' });
     }
 
     function start() {
