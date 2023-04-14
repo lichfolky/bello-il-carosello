@@ -7,3 +7,14 @@
 👉 Make different things clearly different
 
 // @ts-check
+
+```
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
+```
+
+https://github.com/josephschmitt/Clamp.js
